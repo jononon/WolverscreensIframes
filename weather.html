@@ -1,0 +1,25 @@
+<head>
+    <script src="js/jquery-3.1.0.min.js"></script>
+    <!-- <meta http-equiv="refresh" content="1200"> -->
+</head>
+<body>
+  <img id=image><div id=weather></div>
+  <script>
+    var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://api.wunderground.com/api/cec98b78b65111a9/conditions/q/34.0887,-118.4340.json",
+    "method": "GET",
+    "headers": {
+      "cache-control": "no-cache",
+      "postman-token": "6761efcb-f45d-b2c2-3d4d-4c40d900982e"
+    }
+  }
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    $("#image").attr("src",response.current_observation.icon_url);
+    $("#weather").html(response.current_observation.temperature_string);
+  });
+  </script>
+</body>

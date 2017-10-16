@@ -1,0 +1,78 @@
+<head>
+  <div id=map style="width:100%; height:100%;">
+    <script>
+      function initMap() {
+        var center = {lat: 34.1014384, lng: -118.4266919};
+        // Create a map object and specify the DOM element for display.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: center,
+          mapTypeControl: false,
+          mapTypeID: google.maps.MapTypeId.ROADMAP,
+          scrollwheel: false,
+          draggable: false,
+          zoomControl: false,
+          streetViewControl: false,
+          zoom: 11
+        });
+
+        var traffic = new google.maps.TrafficLayer({
+          map: map,
+        });
+
+        var directionsService = new google.maps.DirectionsService;
+        var HWUS      = {lat: 34.1394903, lng: -118.4150432};
+        var HWMS      = {lat: 34.0885966, lng: -118.4356582};
+        var DJ_MOM    = {lat: 34.1452844, lng: -118.4401267};
+        var DJ_DAD    = {lat: 34.1694104, lng: -118.3957387};
+        var JONATHAN  = {lat: 34.0481214, lng: -118.5060167};
+
+        directionsService.route({
+          origin: HWUS,
+          destination: HWMS,
+          travelMode: google.maps.TravelMode.DRIVING
+        }, function(response, status) {
+          if (status === google.maps.DirectionsStatus.OK) {
+            $('#traveltime_MS').append('To Middle School: ' + response.routes[0].legs[0].duration.text);
+          } else {
+            $('#traveltime_MS').append('Directions request failed due to ' + status);
+          }
+        });
+        directionsService.route({
+          origin: HWUS,
+          destination: DJ_MOM,
+          travelMode: google.maps.TravelMode.DRIVING
+        }, function(response, status) {
+          if (status === google.maps.DirectionsStatus.OK) {
+            $('#traveltime_DJ_MOM').append('To DJ\'s House (Roblar): ' + response.routes[0].legs[0].duration.text);
+          } else {
+            $('#traveltime_DJ_MOM').append('Directions request failed due to ' + status);
+          }
+        });
+        directionsService.route({
+          origin: HWUS,
+          destination: DJ_DAD,
+          travelMode: google.maps.TravelMode.DRIVING
+        }, function(response, status) {
+          if (status === google.maps.DirectionsStatus.OK) {
+            $('#traveltime_DJ_DAD').append('To DJ\'s House (Gentry): ' + response.routes[0].legs[0].duration.text);
+          } else {
+            $('#traveltime_DJ_DAD').append('Directions request failed due to ' + status);
+          }
+        });
+        directionsService.route({
+          origin: HWUS,
+          destination: JONATHAN,
+          travelMode: google.maps.TravelMode.DRIVING
+        }, function(response, status) {
+          if (status === google.maps.DirectionsStatus.OK) {
+            $('#traveltime_JONATHAN').append('To Jonathan\'s House: ' + response.routes[0].legs[0].duration.text);
+          } else {
+            $('#traveltime_JONATHAN').append('Directions request failed due to ' + status);
+          }
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcmscSUENKMTKPgTTX9982lWLuFn2DqC0&callback=initMap"
+      async defer></script>
+  </div>
+</head>
