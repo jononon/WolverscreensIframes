@@ -6,14 +6,8 @@
   <img id=image><div id=weather></div>
   <script>
     var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://api.wunderground.com/api/13d2eb6e5cdaa9c2/conditions/q/34.0887,-118.4340.json",
-    "method": "GET",
-    "headers": {
-      "cache-control": "no-cache",
-      "postman-token": "6761efcb-f45d-b2c2-3d4d-4c40d900982e"
-    }
+    "dataType": "json",
+    "url": "http://api.wunderground.com/api/13d2eb6e5cdaa9c2/conditions/q/34.0887,-118.4340.json"
   }
 
   $.ajax(settings).done(function (response) {
