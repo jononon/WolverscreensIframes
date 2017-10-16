@@ -1,19 +1,61 @@
 <head>
     <script src="js/jquery-3.1.0.min.js"></script>
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
     <!-- <meta http-equiv="refresh" content="1200"> -->
 </head>
-<body>
-  <img id=image><div id=weather></div>
+<body style="font-family: 'Source Sans Pro', sans-serif;">
+  <div id=current style="position:absolute;">
+    <table><tr><td><img id=image></td><td style="vertical-align:middle;"><div style="font-size:30;" id=weather></div></td></tr></table>
+  </div>
+  <div id=forecast style="position:absolute">
+  </div>
   <script>
-    var settings = {
+  var conditions = {
     "dataType": "json",
     "url": "http://api.wunderground.com/api/13d2eb6e5cdaa9c2/conditions/q/34.0887,-118.4340.json"
   }
 
-  $.ajax(settings).done(function (response) {
+  $.ajax(conditions).done(function (response) {
     console.log(response);
     $("#image").attr("src",response.current_observation.icon_url);
-    $("#weather").html(response.current_observation.temperature_string);
+    $("#weather").append(response.current_observation.temperature_string + " and " + response.current_observation.weather + " - Winds " + response.current_observation.wind_dir + " at " + response.current_observation.wind_mph);
   });
+
+  var forecast = {
+    "dataType": "json",
+    "url": "http://api.wunderground.com/api/13d2eb6e5cdaa9c2/hourly/q/34.0887,-118.4340.json"
+  }
+
+  $.ajax(forecast).done(function (response) {
+    console.log(response);
+    var htmlString = "<table style='text-align: center;'><tr>";
+    for (var i = 0; i < 5; i++) {
+      htmlString+="<td>"+response.hourly_forecast[i].FCTTIME.civil+"</td>";
+    }
+    htmlString+="</tr><tr>";
+    for (var i = 0; i < 5; i++) {
+      htmlString+="<td>"+response.hourly_forecast[i].temp.english+"°F</td>";
+    }
+    htmlString+="</tr><tr>";
+    for (var i = 0; i < 5; i++) {
+      htmlString+="<td><img src="+response.hourly_forecast[i].icon_url+"></td>";
+    }
+    htmlString+="</tr></table style='text-align:center;'>";
+    $("#forecast").html(htmlString);
+  });
+
+  $('#forecast').attr('class', 'animated fadeOut');
+  var currentActive = true;
+  setInterval(function() {
+    currentActive = !currentActive;
+    if(currentActive) {
+      $('#forecast').attr('class', 'animated fadeOut');
+      $('#current').attr('class', 'animated fadeIn');
+    } else {
+      $('#current').attr('class', 'animated fadeOut');
+      $('#forecast').attr('class', 'animated fadeIn');
+    }
+  },5000);
   </script>
 </body>
