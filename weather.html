@@ -2,6 +2,7 @@
     <script src="js/jquery-3.1.0.min.js"></script>
     <link rel="stylesheet" href="css/animate.min.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <!-- <meta http-equiv="refresh" content="1200"> -->
 </head>
 <body style="font-family: 'Source Sans Pro', sans-serif;">
@@ -29,7 +30,7 @@
 
   $.ajax(forecast).done(function (response) {
     console.log(response);
-    var htmlString = "<table border='1' style='text-align: center;'><tr>";
+    var htmlString = "<table class='table table-bordered' style='text-align: center;'><tr>";
     for (var i = 0; i < 4; i++) {
       htmlString+="<td>"+response.hourly_forecast[i*2].FCTTIME.civil+"</td>";
     }
