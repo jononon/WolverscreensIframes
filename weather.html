@@ -19,7 +19,7 @@
   $.ajax(conditions).done(function (response) {
     console.log(response);
     $("#image").attr("src",response.current_observation.icon_url);
-    $("#weather").append(response.current_observation.temperature_string + " and " + response.current_observation.weather);
+    $("#weather").append(response.current_observation.temperature_string);
   });
 
   var forecast = {
@@ -29,7 +29,7 @@
 
   $.ajax(forecast).done(function (response) {
     console.log(response);
-    var htmlString = "<table style='text-align: center;'><tr>";
+    var htmlString = "<table border='1' style='text-align: center;'><tr>";
     for (var i = 0; i < 4; i++) {
       htmlString+="<td>"+response.hourly_forecast[i*2].FCTTIME.civil+"</td>";
     }
