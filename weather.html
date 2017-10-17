@@ -19,7 +19,7 @@
   $.ajax(conditions).done(function (response) {
     console.log(response);
     $("#image").attr("src",response.current_observation.icon_url);
-    $("#weather").append(response.current_observation.temperature_string + " and " + response.current_observation.weather + " - Winds " + response.current_observation.wind_dir + " at " + response.current_observation.wind_mph);
+    $("#weather").append(response.current_observation.temperature_string + " and " + response.current_observation.weather);
   });
 
   var forecast = {
@@ -30,16 +30,16 @@
   $.ajax(forecast).done(function (response) {
     console.log(response);
     var htmlString = "<table style='text-align: center;'><tr>";
-    for (var i = 0; i < 5; i++) {
-      htmlString+="<td>"+response.hourly_forecast[i].FCTTIME.civil+"</td>";
+    for (var i = 0; i < 4; i++) {
+      htmlString+="<td>"+response.hourly_forecast[i*2].FCTTIME.civil+"</td>";
     }
     htmlString+="</tr><tr>";
-    for (var i = 0; i < 5; i++) {
-      htmlString+="<td>"+response.hourly_forecast[i].temp.english+"°F</td>";
+    for (var i = 0; i < 4; i++) {
+      htmlString+="<td>"+response.hourly_forecast[i*2].temp.english+"°F</td>";
     }
     htmlString+="</tr><tr>";
-    for (var i = 0; i < 5; i++) {
-      htmlString+="<td><img src="+response.hourly_forecast[i].icon_url+"></td>";
+    for (var i = 0; i < 4; i++) {
+      htmlString+="<td><img height=30 src="+response.hourly_forecast[i*2].icon_url+"></td>";
     }
     htmlString+="</tr></table style='text-align:center;'>";
     $("#forecast").html(htmlString);
