@@ -19,7 +19,7 @@
 
   $.ajax(conditions).done(function (response) {
     console.log(response);
-    $("#image").attr("src",response.current_observation.icon_url);
+    $("#image").attr("src",response.current_observation.icon_url.replace(/^http:\/\//i, 'https://'));
     $("#weather").append(response.current_observation.temperature_string);
   });
 
