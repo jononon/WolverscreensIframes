@@ -12,9 +12,28 @@
   </div>
   <div id=forecast style="position:absolute;height:100%;width:100%;"></div>
   <script>
+  function gup( name )
+  {
+    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( window.location.href );
+    if( results == null )
+      return "";
+    else
+      return results[1];
+  }
+
+  var locationString = gup("loc")=="ms"?"34.0887,-118.4340":"34.139549,-118.4150233";
+
   var conditions = {
     "dataType": "json",
-    "url": "https://api.wunderground.com/api/13d2eb6e5cdaa9c2/conditions/q/34.0887,-118.4340.json"
+    "url": "https://api.wunderground.com/api/13d2eb6e5cdaa9c2/conditions/q/"+locationString+".json"
+  }
+
+  var forecast = {
+    "dataType": "json",
+    "url": "https://api.wunderground.com/api/13d2eb6e5cdaa9c2/hourly/q/"+locationString+".json"
   }
 
   $.ajax(conditions).done(function (response) {
@@ -22,11 +41,6 @@
     $("#image").attr("src",response.current_observation.icon_url.replace(/^http:\/\//i, 'https://'));
     $("#weather").append(response.current_observation.temperature_string);
   });
-
-  var forecast = {
-    "dataType": "json",
-    "url": "https://api.wunderground.com/api/13d2eb6e5cdaa9c2/hourly/q/34.0887,-118.4340.json"
-  }
 
   $.ajax(forecast).done(function (response) {
     console.log(response);
