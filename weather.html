@@ -14,7 +14,7 @@
   <script>
   var conditions = {
     "dataType": "json",
-    "url": "http://api.wunderground.com/api/13d2eb6e5cdaa9c2/conditions/q/34.0887,-118.4340.json"
+    "url": "https://api.wunderground.com/api/13d2eb6e5cdaa9c2/conditions/q/34.0887,-118.4340.json"
   }
 
   $.ajax(conditions).done(function (response) {
@@ -25,7 +25,7 @@
 
   var forecast = {
     "dataType": "json",
-    "url": "http://api.wunderground.com/api/13d2eb6e5cdaa9c2/hourly/q/34.0887,-118.4340.json"
+    "url": "https://api.wunderground.com/api/13d2eb6e5cdaa9c2/hourly/q/34.0887,-118.4340.json"
   }
 
   $.ajax(forecast).done(function (response) {
