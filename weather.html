@@ -47,7 +47,7 @@
     var htmlString = "<table class='table table-bordered table-condensed' style='text-align: center;width:100%;height:100%;font-size:6vw'><tr>";
     for (var i = 0; i < 4; i++) {
       htmlString+=
-      "<td style='vertical-align: middle;'><b>"+response.hourly_forecast[i*2].FCTTIME.civil+"</b><br>"+response.hourly_forecast[i*2].temp.english+"<br><img height=25% src="+response.hourly_forecast[i*2].icon_url.replace(/^http:\/\//i, 'https://')+"></td>";
+      "<td style='vertical-align: middle;'><b>"+response.hourly_forecast[i*2].FCTTIME.civil+"</b><br>"+response.hourly_forecast[i*2].temp.english+"°F<br><img height=25% src="+response.hourly_forecast[i*2].icon_url.replace(/^http:\/\//i, 'https://')+"></td>";
     }
     htmlString+="</tr></table>";
     $("#forecast").html(htmlString);
